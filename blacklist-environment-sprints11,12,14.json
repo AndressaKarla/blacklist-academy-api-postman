@@ -1,0 +1,273 @@
+{
+	"id": "850a93af-9bdb-4f93-b71d-eab4beba18f0",
+	"name": "blacklist-environment-sprints11,12,14",
+	"values": [
+		{
+			"key": "baseUrl",
+			"value": "https://black-list.qacoders.dev.br",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "mailSYSADMIN",
+			"value": "sysadmin@qacoders.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "passwordSYSADMIN",
+			"value": "1234@Test",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "tokenSYSADMIN",
+			"value": "",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "idADMIN",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "mailADMIN",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "passwordADMIN",
+			"value": "1234@Test",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "confirmPasswordADMIN",
+			"value": "1234@Test",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "tokenADMIN",
+			"value": "",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "numero",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "cpf",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "emailInvalido",
+			"value": "cristian@gmail",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "senhaInvalida",
+			"value": "123",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "idADMINPut1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "mailADMINPut1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "updatedFullNameADMIN1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "updatedMailADMIN1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "idADMINPut2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "mailADMINPut2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "cpf2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "cpf4",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "idADMIN2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "mailADMIN2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "cpf5",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "idADMIN3",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "mailADMIN3",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "cpf3",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "cnpj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "idCompany",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "corporateName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "registerCompany",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "mail",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "matriz",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "responsibleContact",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "telephone",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "serviceDescription",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "cnpjEsperado",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "cpf6",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "firstName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "lastName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "fullName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "lastEmail",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "emailCompleto",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "trocaPassword",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-11-05T04:27:22.060Z",
+	"_postman_exported_using": "Postman/11.18.2"
+}

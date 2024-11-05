@@ -1,0 +1,3523 @@
+{
+	"info": {
+		"_postman_id": "652baee5-9a16-4b93-a12e-953590444d0e",
+		"name": "blacklist-collection-sprints11,12,14",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "25329779",
+		"_collection_link": "https://team-workspace-postman-777.postman.co/workspace/Run-Tests---Squad-Black-List~1f466666-67ad-4690-8afd-1742a8ed986d/collection/25329779-652baee5-9a16-4b93-a12e-953590444d0e?action=share&source=collection_link&creator=25329779"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "POST login (SYSADMIN)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"POST login (SYSADMIN) - Validar status 200 OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"tokenSYSADMIN\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mail\": \"{{mailSYSADMIN}}\",\r\n    \"password\": \"{{passwordSYSADMIN}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/login"
+					},
+					"response": []
+				},
+				{
+					"name": "POST user (ADMIN)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"POST user (ADMIN) - Validar status 201 Created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"idADMIN\", jsonData.user._id);\r",
+									"pm.environment.set(\"mailADMIN\", jsonData.user.mail);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenSYSADMIN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"fullName\": \"ADMIN Blacklist\",\r\n\t\"mail\": \"admin.blacklist{{numero}}@qacoders.com\",\r\n    \"accessProfile\": \"ADMIN\",\r\n    \"cpf\": \"{{cpf}}\",\r\n    \"password\": \"{{passwordADMIN}}\",\r\n    \"confirmPassword\": \"{{confirmPasswordADMIN}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/user"
+					},
+					"response": []
+				},
+				{
+					"name": "POST login (ADMIN)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"POST login (ADMIN) - Validar status 200 OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"tokenADMIN\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mail\": \"{{mailADMIN}}\",\r\n    \"password\": \"{{passwordADMIN}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Criar cadastro de usuário",
+					"item": [
+						{
+							"name": "403 Cadastrar novo usuário (falha de autenticacao de token)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"function firstName() {\r",
+											"var firstName = [\"Sandra\", \"William\", \"Andre\", \"Mariano\",\"Fabiano\", \"Miguel\",\"Sibele\",\"Jose\",\"Joao\",\"Antonio\", \"Samuel\",\"Timoteo\",\"Roberval\",\"Natanael\",\"Tiburcio\", \"Godofredo\",\"Eustaqui\",\"Pafuncio\",\"Elza\", \"Elga\",\"Francisco\", \"Eduardo\", \"Lisandro\",\"Cristiane\",\"Eliza\", \"Luiza\",\"Poliana\", \"Milena\", \"Adroaldo\", \"Edson\"];\r",
+											"var randomItem = firstName[Math.floor(Math.random() * firstName.length)];\r",
+											"return randomItem;\r",
+											"}\r",
+											"pm.environment.set(\"firstName\" , firstName());\r",
+											"\r",
+											"function lastName() {\r",
+											"\tvar lastName = [\"Alves\",\"Silva\", \"Schmittel\", \"Eisenhut\", \"Schereder\", \"Kenedy\", \"Silva\", \"Duarte\", \"Goncalves\",\"Floriano\", \"Goldstein\", \"Ribeiro\", \"Fonseca\"];\r",
+											"var randomItem = lastName[Math.floor(Math.random() * lastName.length)];\r",
+											"return randomItem;\r",
+											"}\r",
+											"pm.environment.set(\"lastName\" , lastName());\r",
+											"// concatena o rimeiro e o segundo e grava na variavel \r",
+											"pm.environment.set(\"fullName\", pm.variables.get(\"firstName\") + \" \" + pm.variables.get(\"lastName\"));\r",
+											"\r",
+											"function lastEmail() {\r",
+											"\tvar lastEmail = [\"@bol.com.br\", \"@yahoo.com.br\",\"@terra.com.br\",\"@qacoders.com.br\",\"@cfe.com.br\", \"@cfe.com\"];\r",
+											"var randomItem = lastEmail[Math.floor(Math.random() * lastEmail.length)];\r",
+											"return randomItem;\r",
+											"}\r",
+											"pm.environment.set(\"lastEmail\" , lastEmail());\r",
+											"pm.environment.set(\"emailCompleto\", pm.variables.get(\"firstName\") + pm.variables.get(\"lastName\") + pm.variables.get(\"lastEmail\"));\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Validando mensagem de falha de autenticacao de token\", () => {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.errors).to.eql([\"Failed to authenticate token.\"]);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Validando Status code 403\", () => {\r",
+											"    pm.response.to.have.status(403);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "gjgjgjk",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullName\": \"{{fullName}}\",\r\n    \"mail\": \"{{emailCompleto}}\",\r\n    \"password\": \"{{passwordADMIN}}\",\r\n    \"accessProfile\": \"ADMIN\",\r\n    \"cpf\": \"{{cpf6}}\",\r\n    \"confirmPassword\": \"{{confirmPasswordADMIN}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/api/user"
+							},
+							"response": []
+						},
+						{
+							"name": "409 Tentar cadastrar usuário já cadastrado",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Validando mensagem de usuário ja existente na base de dados\", () => {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.alert).to.eql([\"O cpf informado já existe em nossa base de dados.\"]);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"validando Status code 409\", function () {\r",
+											"    pm.response.to.have.status(409);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenADMIN}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullName\": \"Cristian F Eisenhut\",\r\n    \"mail\": \"cristian@test.com.br\",\r\n    \"password\": \"{{passwordADMIN}}\",\r\n    \"accessProfile\": \"ADMIN\",\r\n    \"cpf\": \"99988877733\",\r\n    \"confirmPassword\": \"{{confirmPasswordADMIN}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/api/user"
+							},
+							"response": []
+						},
+						{
+							"name": "400 Tentar cadastrar usuário (mail ausente)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"validando Status code 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"pm.test(\"Validando mensagem de erro\", () => {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.error).to.eql([\r",
+											"        \"O campo e-mail é obrigatório.\"\r",
+											"    ]);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{tokenADMIN}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullName\": \"Cristian F Eisenhut\",\r\n    // \"mail\": \"cristian@test.com.br\",\r\n    \"password\": \"{{passwordADMIN}}\",\r\n    \"accessProfile\": \"ADMIN\",\r\n    \"cpf\": \"99988877733\",\r\n    \"confirmPassword\": \"{{confirmPasswordADMIN}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/api/user"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PUT - campos informados corretamente",
+					"item": [
+						{
+							"name": "POST user (ADMIN) - para \"PUT - campos informados corretamente\"",
+							"item": [
+								{
+									"name": "POST user (ADMIN) - para \"PUT - campos informados corretamente\"",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"POST user (ADMIN) - para \\\"PUT - campos informados corretamente\\\" - Validar status 201 Created\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"    pm.response.to.have.status(\"Created\");\r",
+													"});\r",
+													"\r",
+													"var jsonData = pm.response.json();\r",
+													"pm.environment.set(\"idADMINPut1\", jsonData.user._id);\r",
+													"pm.environment.set(\"mailADMINPut1\", jsonData.user.mail);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"Teste User ADMIN Blacklist Para PUT Correto\",\r\n    \"mail\": \"teste.user.admin.blacklist.put.correto{{numero}}@qacoders.com\",\r\n    \"accessProfile\": \"ADMIN\",\r\n    \"cpf\": \"{{cpf2}}\",\r\n    \"password\": \"{{passwordADMIN}}\",\r\n    \"confirmPassword\": \"{{confirmPasswordADMIN}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "fullName, mail, password e status",
+							"item": [
+								{
+									"name": "PUT user (ADMIN) - fullName e mail (corretos)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var msgObtida = jsonData.msg;\r",
+													"var updatedUserIdObtido = jsonData.updatedUser._id;\r",
+													"var updatedUserFullNameObtido = jsonData.updatedUser.fullName;\r",
+													"var updatedUserMailObtido = jsonData.updatedUser.mail;\r",
+													"var updatedUserAccessProfileObtido = jsonData.updatedUser.accessProfile;\r",
+													"var updatedUserCpfObtido = jsonData.updatedUser.cpf;\r",
+													"var updatedUserStatusObtido = jsonData.updatedUser.status;\r",
+													"var auditUpdatedByUserIdObtido = jsonData.updatedUser.audit[1].updatedBy.userId; \r",
+													"var auditUpdatedByUserLoginObtido = jsonData.updatedUser.audit[1].updatedBy.userLogin; \r",
+													"var auditUpdateDateObtido = jsonData.updatedUser.audit[1].updateDate;\r",
+													"var auditIdObtido = jsonData.updatedUser.audit[1]._id;\r",
+													"var vObtido = jsonData.updatedUser.__v;\r",
+													"\r",
+													"var msgEsperada = \"Dados atualizados com sucesso!\";\r",
+													"var updatedUserFullNameEsperado = \"Teste User ADMIN Blacklist Alterado\";\r",
+													"var updatedUserMailEsperado = \"teste.user.admin.blacklist.alterado\";\r",
+													"var updatedUserAccessProfileEsperado = \"ADMIN\";\r",
+													"var updatedUserStatusEsperado = true;\r",
+													"\r",
+													"pm.test(\"PUT user (ADMIN) - fullName e mail (corretos) - Validar status 200 OK e dados retornados com sucesso\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"\r",
+													"    pm.expect(msgObtida).to.include(msgEsperada);\r",
+													"    pm.expect(updatedUserIdObtido).is.not.null;\r",
+													"    pm.expect(updatedUserFullNameObtido).to.include(updatedUserFullNameEsperado);\r",
+													"    pm.expect(updatedUserMailObtido).to.include(updatedUserMailEsperado);\r",
+													"    pm.expect(updatedUserAccessProfileObtido).to.include(updatedUserAccessProfileEsperado);\r",
+													"    pm.expect(updatedUserCpfObtido).is.not.null;\r",
+													"    pm.expect(updatedUserStatusObtido).to.eq(updatedUserStatusEsperado);\r",
+													"    pm.expect(auditUpdatedByUserIdObtido).is.not.null;\r",
+													"    pm.expect(auditUpdatedByUserLoginObtido).is.not.null;\r",
+													"    pm.expect(auditUpdateDateObtido).is.not.null;\r",
+													"    pm.expect(auditIdObtido).is.not.null;\r",
+													"    pm.expect(vObtido).is.not.null;\r",
+													"});\r",
+													"\r",
+													"pm.environment.set(\"updatedFullNameADMIN1\", updatedUserFullNameObtido);\r",
+													"pm.environment.set(\"updatedMailADMIN1\", updatedUserMailObtido);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"Teste User ADMIN Blacklist Alterado\",\r\n    \"mail\": \"teste.user.admin.blacklist.alterado{{numero}}@qacoders.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/{{idADMINPut1}}"
+									},
+									"response": []
+								},
+								{
+									"name": "PUT user (ADMIN) - status correto (false)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var msgObtida = jsonData.msg;\r",
+													"var msgEsperada = \"Status do usuario atualizado com sucesso para status false.\";\r",
+													"\r",
+													"pm.test(\"PUT user (ADMIN) - status correto (false) - Validar status 200 OK e dados retornados com sucesso\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"\r",
+													"    pm.expect(msgObtida).to.include(msgEsperada);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"status\": false\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/status/{{idADMINPut1}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Editar_status_usuário (true)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Validando mensagem Status True\", () => {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.msg).to.eql(\"Status do usuario atualizado com sucesso para status true.\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"status\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/status/{{idADMINPut1}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Editar_password_usuário",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var msgObtida = jsonData.msg;\r",
+													"var msgEsperada = \"Senha atualizada com sucesso!\";\r",
+													"\r",
+													"pm.test(\"Editar_password_usuário - Validar status 200 OK e dados retornados com sucesso\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"\r",
+													"    pm.expect(msgObtida).to.include(msgEsperada);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"function generatePassword() {\r",
+													"    const chars = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%\";\r",
+													"    const comprimentoMinimo = 8;\r",
+													"    const comprimentoMaximo = 9;\r",
+													"    let senhaArray = [];\r",
+													" \r",
+													"    senhaArray.push(chars[Math.floor(Math.random() * 26)]); \r",
+													"    senhaArray.push(chars[26 + Math.floor(Math.random() * 26)]); \r",
+													"    senhaArray.push(chars[52 + Math.floor(Math.random() * 10)]); \r",
+													"    senhaArray.push(chars[62 + Math.floor(Math.random() * 4)]); \r",
+													"    \r",
+													"    const comprimentoRestante = Math.max(comprimentoMinimo - senhaArray.length, comprimentoMaximo - senhaArray.length);\r",
+													"    \r",
+													"    for (let i = 0; i < comprimentoRestante; i++) {\r",
+													"        senhaArray.push(chars[Math.floor(Math.random() * chars.length)]);\r",
+													"    }\r",
+													"    return shuffleString(senhaArray.join(\"\"));\r",
+													"}\r",
+													"\r",
+													"function shuffleString(string) {\r",
+													"  return string.split(\"\").sort(() => Math.random() - 0.5).join(\"\");\r",
+													"}\r",
+													"pm.environment.set(\"trocaPassword\", generatePassword());"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"password\": \"{{trocaPassword}}\",\r\n  \"confirmPassword\": \"{{trocaPassword}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/password/{{idADMINPut1}}"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "PUT - campos informados incorretamente",
+					"item": [
+						{
+							"name": "POST user (ADMIN) - para \"PUT - campos informados incorretamente\"",
+							"item": [
+								{
+									"name": "POST user (ADMIN) - para \"PUT - campos informados incorretamente\"",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"POST user (ADMIN) - para \\\"PUT - campos informados incorretamente\\\" - Validar status 201 Created\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"    pm.response.to.have.status(\"Created\");\r",
+													"});\r",
+													"\r",
+													"var jsonData = pm.response.json();\r",
+													"pm.environment.set(\"idADMINPut2\", jsonData.user._id);\r",
+													"pm.environment.set(\"mailADMINPut2\", jsonData.user.mail);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"Teste User ADMIN Blacklist Para PUT Incorreto\",\r\n    \"mail\": \"teste.user.admin.blacklist.put.incorreto{{numero}}@qacoders.com\",\r\n    \"accessProfile\": \"ADMIN\",\r\n    \"cpf\": \"{{cpf3}}\",\r\n    \"password\": \"{{passwordADMIN}}\",\r\n    \"confirmPassword\": \"{{confirmPasswordADMIN}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "fullName",
+							"item": [
+								{
+									"name": "PUT user (ADMIN) - fullName incorreto (vazio)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var errorObtido = jsonData.error;\r",
+													"var errorEsperado =  \"errorMessages is not defined\";\r",
+													"\r",
+													"pm.test(\"PUT user (ADMIN) - fullName incorreto (vazio) - Validar status 500 Internal Server Error e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"    pm.response.to.have.status(\"Internal Server Error\");\r",
+													"\r",
+													"    pm.expect(errorObtido).to.include(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"\",\r\n    \"mail\": \"teste.user.admin.blacklist.alterado@qacoders.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/{{idADMINPut2}}"
+									},
+									"response": []
+								},
+								{
+									"name": "PUT user (ADMIN) - fullName incorreto (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var errorObtido = jsonData.error;\r",
+													"var errorEsperado =  \"errorMessages is not defined\";\r",
+													"\r",
+													"pm.test(\"PUT user (ADMIN) - fullName incorreto (null) - Validar status 500 Internal Server Error e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"    pm.response.to.have.status(\"Internal Server Error\");\r",
+													"\r",
+													"    pm.expect(errorObtido).to.include(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": null,\r\n    \"mail\": \"teste.user.admin.blacklist.alterado@qacoders.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/{{idADMINPut2}}"
+									},
+									"response": []
+								},
+								{
+									"name": "PUT user (ADMIN) - fullName incorreto (ausente)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var errorObtido = jsonData.error;\r",
+													"var errorEsperado =  \"errorMessages is not defined\";\r",
+													"\r",
+													"pm.test(\"PUT user (ADMIN) - fullName incorreto (ausente) - Validar status 500 Internal Server Error e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"    pm.response.to.have.status(\"Internal Server Error\");\r",
+													"\r",
+													"    pm.expect(errorObtido).to.include(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \r\n    \"mail\": \"teste.user.admin.blacklist.alterado@qacoders.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/{{idADMINPut2}}"
+									},
+									"response": []
+								},
+								{
+									"name": "PUT user (ADMIN) - fullName incorreto (1 palavra composta)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var errorObtido = jsonData.error;\r",
+													"var errorEsperado =  \"errorMessages is not defined\";\r",
+													"\r",
+													"pm.test(\"PUT user (ADMIN) - fullName incorreto (1 palavra composta) - Validar status 500 Internal Server Error e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"    pm.response.to.have.status(\"Internal Server Error\");\r",
+													"\r",
+													"    pm.expect(errorObtido).to.include(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"Alice\",\r\n    \"mail\": \"teste.user.admin.blacklist.alterado@qacoders.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/{{idADMINPut2}}"
+									},
+									"response": []
+								},
+								{
+									"name": "PUT user (ADMIN) - fullName incorreto (iniciais em letra minúscula)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var errorObtido = jsonData.error;\r",
+													"var errorEsperado =  \"errorMessages is not defined\";\r",
+													"\r",
+													"pm.test(\"PUT user (ADMIN) - fullName incorreto (iniciais em letra minúscula) - Validar status 500 Internal Server Error e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"    pm.response.to.have.status(\"Internal Server Error\");\r",
+													"\r",
+													"    pm.expect(errorObtido).to.include(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"tESTE uSER aDMIN bLACKLIST aLTERADO\",\r\n    \"mail\": \"teste.user.admin.blacklist.alterado@qacoders.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/{{idADMINPut2}}"
+									},
+									"response": []
+								},
+								{
+									"name": "PUT user (ADMIN) - fullName incorreto (caracteres especiais)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var errorObtido = jsonData.error;\r",
+													"var errorEsperado =  \"errorMessages is not defined\";\r",
+													"\r",
+													"pm.test(\"PUT user (ADMIN) - fullName incorreto (caracteres especiais) - Validar status 500 Internal Server Error e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"    pm.response.to.have.status(\"Internal Server Error\");\r",
+													"\r",
+													"    pm.expect(errorObtido).to.include(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"Teste User ADMIN Blacklist Alterado '\\\"!@#$%¨&*()-_+=/|{}[]`´^~<,>.:;\",\r\n    \"mail\": \"teste.user.admin.blacklist.alterado@qacoders.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/{{idADMINPut2}}"
+									},
+									"response": []
+								},
+								{
+									"name": "PUT user (ADMIN) - fullName incorreto (além de 100 caracteres permitido - 101 caracteres)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var errorObtido = jsonData.error;\r",
+													"var errorEsperado =  \"errorMessages is not defined\";\r",
+													"\r",
+													"pm.test(\"PUT user (ADMIN) - fullName incorreto (além de 100 caracteres permitido - 101 caracteres) - Validar status 500 Internal Server Error e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"    pm.response.to.have.status(\"Internal Server Error\");\r",
+													"\r",
+													"    pm.expect(errorObtido).to.include(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"Alice Bruna Camila Denise Estela Fernanda Gabriela Helena Ingrid Juliana Kamila Luciana Manuela Natty\",\r\n    \"mail\": \"teste.user.admin.blacklist.alterado@qacoders.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/{{idADMINPut2}}"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "mail",
+							"item": [
+								{
+									"name": "PUT user (ADMIN) - mail incorreto (vazio)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var errorObtido = jsonData.error;\r",
+													"var errorEsperado =  \"errorMessages is not defined\";\r",
+													"\r",
+													"pm.test(\"PUT user (ADMIN) - mail incorreto (vazio) - Validar status 500 Internal Server Error e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"    pm.response.to.have.status(\"Internal Server Error\");\r",
+													"\r",
+													"    pm.expect(errorObtido).to.include(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"Teste User ADMIN Blacklist Alterado\",\r\n    \"mail\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/{{idADMINPut2}}"
+									},
+									"response": []
+								},
+								{
+									"name": "PUT user (ADMIN) - mail incorreto (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var errorObtido = jsonData.error;\r",
+													"var errorEsperado =  \"errorMessages is not defined\";\r",
+													"\r",
+													"pm.test(\"PUT user (ADMIN) - mail incorreto (null) - Validar status 500 Internal Server Error e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"    pm.response.to.have.status(\"Internal Server Error\");\r",
+													"\r",
+													"    pm.expect(errorObtido).to.include(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"Teste User ADMIN Blacklist Alterado\",\r\n    \"mail\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/{{idADMINPut2}}"
+									},
+									"response": []
+								},
+								{
+									"name": "PUT user (ADMIN) - mail incorreto (ausente)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var errorObtido = jsonData.error;\r",
+													"var errorEsperado =  \"errorMessages is not defined\";\r",
+													"\r",
+													"pm.test(\"PUT user (ADMIN) - mail incorreto (ausente) - Validar status 500 Internal Server Error e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"    pm.response.to.have.status(\"Internal Server Error\");\r",
+													"\r",
+													"    pm.expect(errorObtido).to.include(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"Teste User ADMIN Blacklist Alterado\"\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/{{idADMINPut2}}"
+									},
+									"response": []
+								},
+								{
+									"name": "PUT user (ADMIN) - mail incorreto (sem @)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var errorObtido = jsonData.error;\r",
+													"var errorEsperado =  \"errorMessages is not defined\";\r",
+													"\r",
+													"pm.test(\"PUT user (ADMIN) - mail incorreto (ausente) - Validar status 500 Internal Server Error e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"    pm.response.to.have.status(\"Internal Server Error\");\r",
+													"\r",
+													"    pm.expect(errorObtido).to.include(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"Teste User ADMIN Blacklist Alterado\",\r\n    \"mail\": \"teste.user.admin.blacklist.alterado{{numero}}qacoders.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/{{idADMINPut2}}"
+									},
+									"response": []
+								},
+								{
+									"name": "PUT user (ADMIN) - mail incorreto (2 pontos após nome)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Faz a requisição e armazena a resposta em jsonData\r",
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"// Variáveis de erro\r",
+													"var errorObtido = jsonData.error;\r",
+													"console.log(errorObtido);  // Exibe o erro retornado pela API no Postman Console para verificação\r",
+													"\r",
+													"var errorEsperado =  \"errorMessages is not defined\";\r",
+													"\r",
+													"// Teste para validar o status 400 e a mensagem de erro retornada\r",
+													"pm.test(\"PUT user (ADMIN) - mail incorreto (2 pontos após nome) - Validar status 500 Internal Server Error e dados retornados com erro\", function () {\r",
+													"    // Verifica se o status da resposta é 500\r",
+													"    pm.response.to.have.status(500);\r",
+													"    \r",
+													"    // Verifica se a mensagem de erro retornada corresponde ao esperado\r",
+													"    pm.expect(errorObtido).to.eql(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"Teste User ADMIN Blacklist Alterado\",\r\n    \"mail\": \"teste.user.admin.blacklist.alterado..@qacoders.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/{{idADMINPut2}}"
+									},
+									"response": []
+								},
+								{
+									"name": "PUT user (ADMIN) - mail incorreto (espaço no nome)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var errorObtido = jsonData.error;\r",
+													"var errorEsperado =  \"errorMessages is not defined\";\r",
+													"\r",
+													"pm.test(\"PUT user (ADMIN) - mail incorreto (espaço no nome) - Validar status 500 Internal Server Error e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"    pm.response.to.have.status(\"Internal Server Error\");\r",
+													"\r",
+													"    pm.expect(errorObtido).to.include(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"Teste User ADMIN Blacklist Alterado\",\r\n    \"mail\": \"teste.user.admin blacklist.alterado@qacoders.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/{{idADMINPut2}}"
+									},
+									"response": []
+								},
+								{
+									"name": "PUT user (ADMIN) - mail incorreto (espaço no domínio)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var errorObtido = jsonData.error;\r",
+													"var errorEsperado =  \"errorMessages is not defined\";\r",
+													"\r",
+													"pm.test(\"PUT user (ADMIN) - mail incorreto (espaço no domínio) - Validar status 500 Internal Server Error e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(500);\r",
+													"    pm.response.to.have.status(\"Internal Server Error\");\r",
+													"\r",
+													"    pm.expect(errorObtido).to.include(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"Teste User ADMIN Blacklist Alterado\",\r\n    \"mail\": \"teste.user.admin.blacklist.alterado@ qacoders.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/{{idADMINPut2}}"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "password",
+							"item": [
+								{
+									"name": "PUT user (ADMIN) - trocar password com menos de 8 caracteres",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var msgObtida = jsonData.error;\r",
+													"var msgEsperada = \"A senha deve ter entre 8 e 12 caracteres\";\r",
+													"\r",
+													"\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"    pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Validar mensagem de erro\", function () {\r",
+													"     pm.expect(msgObtida[0]).to.include(msgEsperada);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"password\": \"11S@\",\r\n    \"confirmPassword\": \"11S@\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user/password/{{idADMINPut2}}"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Deletar Cadastro de usuários",
+					"item": [
+						{
+							"name": "403 Deletar_usuário-token-inválido",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Validando mensagem de falha de autenticacao de token\", () => {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.errors).to.eql([\"Failed to authenticate token.\"]);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Validando Status code 403\", () => {\r",
+											"    pm.response.to.have.status(403);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "SJCLJFLJALDFJADLJ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/api/user/{{idADMINPut2}}"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "POST login - campos informados corretamente",
+					"item": [
+						{
+							"name": "POST user (ADMIN) - para \"mail e password (ADMIN)\"",
+							"item": [
+								{
+									"name": "POST user (ADMIN) - para \"mail e password (ADMIN)\"",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"POST user (ADMIN) - para \\\"POST login - campos informados corretamente\\\" - Validar status 201 Created\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"    pm.response.to.have.status(\"Created\");\r",
+													"});\r",
+													"\r",
+													"var jsonData = pm.response.json();\r",
+													"pm.environment.set(\"idADMIN2\", jsonData.user._id);\r",
+													"pm.environment.set(\"mailADMIN2\", jsonData.user.mail);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenSYSADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"Teste User ADMIN Blacklist Para POST Login Correto\",\r\n    \"mail\": \"teste.user.admin.blacklist.post.login.correto{{numero}}@qacoders.com\",\r\n    \"accessProfile\": \"ADMIN\",\r\n    \"cpf\": \"{{cpf4}}\",\r\n    \"password\": \"{{passwordADMIN}}\",\r\n    \"confirmPassword\": \"{{confirmPasswordADMIN}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "mail e password (ADMIN)",
+							"item": [
+								{
+									"name": "POST login (ADMIN) - mail e password (corretos)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var msgObtida = jsonData.msg;\r",
+													"var userIdObtido = jsonData.user._id;\r",
+													"var userFullNameObtido = jsonData.user.fullName;\r",
+													"var userMailObtido = jsonData.user.mail;\r",
+													"var userAccessProfileObtido = jsonData.user.accessProfile;\r",
+													"var userCpfObtido = jsonData.user.cpf;\r",
+													"var userStatusObtido = jsonData.user.status;\r",
+													"var auditRegisteredByUserIdObtido = jsonData.user.audit[0].registeredBy.userId;\r",
+													"var auditRegisteredByUserLoginObtido = jsonData.user.audit[0].registeredBy.userLogin;\r",
+													"var auditRegistrationDateObtido = jsonData.user.audit[0].registrationDate;\r",
+													"var auditRegistrationNumberObtido = jsonData.user.audit[0].registrationNumber;\r",
+													"var auditIdObtido = jsonData.user.audit[0]._id;\r",
+													"var vObtido = jsonData.user.__v;\r",
+													"var tokenObtido = jsonData.token;\r",
+													"\r",
+													"var msgEsperada = \"Olá Teste User ADMIN Blacklist Para POST Login Correto, autenticação autorizada com sucesso!\";\r",
+													"var userFullNameEsperado = \"Teste User ADMIN Blacklist Para POST Login Correto\";\r",
+													"var userMailEsperado = \"teste.user.admin.blacklist.post.login.correto\";\r",
+													"var userAccessProfileEsperado = \"ADMIN\";\r",
+													"var userStatusEsperado = true;\r",
+													"var auditRegistrationNumberEsperado = \"QaCoders-\";\r",
+													"\r",
+													"pm.test(\"POST login (ADMIN) - mail e password (corretos) - Validar status 200 OK e dados retornados com sucesso\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"\r",
+													"    pm.expect(msgObtida).to.include(msgEsperada);\r",
+													"    pm.expect(userIdObtido).is.not.null;\r",
+													"    pm.expect(userFullNameObtido).to.include(userFullNameEsperado);\r",
+													"    pm.expect(userMailObtido).to.include(userMailEsperado);\r",
+													"    pm.expect(userAccessProfileObtido).to.include(userAccessProfileEsperado);\r",
+													"    pm.expect(userCpfObtido).is.not.null;\r",
+													"    pm.expect(userStatusObtido).to.eq(userStatusEsperado);\r",
+													"    pm.expect(auditRegisteredByUserIdObtido).is.not.null;\r",
+													"    pm.expect(auditRegisteredByUserLoginObtido).is.not.null;\r",
+													"    pm.expect(auditRegistrationDateObtido).is.not.null;\r",
+													"    pm.expect(auditRegistrationNumberObtido).to.include(auditRegistrationNumberEsperado);\r",
+													"    pm.expect(auditIdObtido).is.not.null;\r",
+													"    pm.expect(vObtido).is.not.null;\r",
+													"    pm.expect(tokenObtido).is.not.null;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mail\": \"{{mailADMIN2}}\",\r\n    \"password\": \"{{passwordADMIN}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/login"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "mail e password (SYSADMIN)",
+							"item": [
+								{
+									"name": "Login com sucesso  (SYSADMIN) - estrututura e token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Removed the HTML content from the response body\r",
+													"pm.test(\"Validando Status code 200 de sucesso\", () => {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"const schema = {    \r",
+													"    \"$id\": \"http://example.com/example.json\",\r",
+													"    \"type\": \"object\",\r",
+													"    \"default\": {},\r",
+													"    \"title\": \"Root Schema\",\r",
+													"    \"required\": [\r",
+													"        \"msg\",\r",
+													"        \"user\",\r",
+													"        \"token\"\r",
+													"    ],\r",
+													"    \"properties\": {\r",
+													"        \"msg\": {\r",
+													"            \"type\": \"string\",\r",
+													"            \"default\": \"\",\r",
+													"            \"title\": \"The msg Schema\",\r",
+													"            \"examples\": [\r",
+													"                \"Olá Qa-Coders-SYSADMIN, autenticação autorizada com sucesso!\"\r",
+													"            ]\r",
+													"        },\r",
+													"        \"user\": {\r",
+													"            \"type\": \"object\",\r",
+													"            \"default\": {},\r",
+													"            \"title\": \"The user Schema\",\r",
+													"            \"required\": [\r",
+													"                \"_id\",\r",
+													"                \"fullName\",\r",
+													"                \"mail\",\r",
+													"                \"password\",\r",
+													"                \"accessProfile\",\r",
+													"                \"cpf\",\r",
+													"                \"status\",\r",
+													"                \"audit\",\r",
+													"                \"__v\"\r",
+													"            ],\r",
+													"            \"properties\": {\r",
+													"                \"_id\": {\r",
+													"                    \"type\": \"string\",\r",
+													"                    \"default\": \"\",\r",
+													"                    \"title\": \"The _id Schema\",\r",
+													"                    \"examples\": [\r",
+													"                        \"65384b692bff0787faabce88\"\r",
+													"                    ]\r",
+													"                },\r",
+													"                \"fullName\": {\r",
+													"                    \"type\": \"string\",\r",
+													"                    \"default\": \"\",\r",
+													"                    \"title\": \"The fullName Schema\",\r",
+													"                    \"examples\": [\r",
+													"                        \"Qa-Coders-SYSADMIN\"\r",
+													"                    ]\r",
+													"                },\r",
+													"                \"mail\": {\r",
+													"                    \"type\": \"string\",\r",
+													"                    \"default\": \"\",\r",
+													"                    \"title\": \"The mail Schema\",\r",
+													"                    \"examples\": [\r",
+													"                        \"sysadmin@qacoders.com\"\r",
+													"                    ]\r",
+													"                },\r",
+													"                \"password\": {\r",
+													"                    \"type\": \"string\",\r",
+													"                    \"default\": \"\",\r",
+													"                    \"title\": \"The password Schema\",\r",
+													"                    \"examples\": [\r",
+													"                        \"$2b$10$kEeXDRXLdbLu8.3RJ8zkMu.8O4q4BW4Yn742SipJFcjE8/0ZH8Wfy\"\r",
+													"                    ]\r",
+													"                },\r",
+													"                \"accessProfile\": {\r",
+													"                    \"type\": \"string\",\r",
+													"                    \"default\": \"\",\r",
+													"                    \"title\": \"The accessProfile Schema\",\r",
+													"                    \"examples\": [\r",
+													"                        \"SYSADMIN\"\r",
+													"                    ]\r",
+													"                },\r",
+													"                \"cpf\": {\r",
+													"                    \"type\": \"string\",\r",
+													"                    \"default\": \"\",\r",
+													"                    \"title\": \"The cpf Schema\",\r",
+													"                    \"examples\": [\r",
+													"                        \"11111111111\"\r",
+													"                    ]\r",
+													"                },\r",
+													"                \"status\": {\r",
+													"                    \"type\": \"boolean\",\r",
+													"                    \"default\": false,\r",
+													"                    \"title\": \"The status Schema\",\r",
+													"                    \"examples\": [\r",
+													"                        true\r",
+													"                    ]\r",
+													"                },\r",
+													"                \"audit\": {\r",
+													"                    \"type\": \"array\",\r",
+													"                    \"default\": [],\r",
+													"                    \"title\": \"The audit Schema\",\r",
+													"                    \"items\": {\r",
+													"                        \"type\": \"object\",\r",
+													"                        \"default\": {},\r",
+													"                        \"title\": \"A Schema\",\r",
+													"                        \"required\": [\r",
+													"                            \"registeredBy\",\r",
+													"                            \"registrationDate\",\r",
+													"                            \"registrationNumber\",\r",
+													"                            \"companyId\",\r",
+													"                            \"_id\"\r",
+													"                        ],\r",
+													"                        \"properties\": {\r",
+													"                            \"registeredBy\": {\r",
+													"                                \"type\": \"object\",\r",
+													"                                \"default\": {},\r",
+													"                                \"title\": \"The registeredBy Schema\",\r",
+													"                                \"required\": [\r",
+													"                                    \"userId\",\r",
+													"                                    \"userLogin\"\r",
+													"                                ],\r",
+													"                                \"properties\": {\r",
+													"                                    \"userId\": {\r",
+													"                                        \"type\": \"string\",\r",
+													"                                        \"default\": \"\",\r",
+													"                                        \"title\": \"The userId Schema\",\r",
+													"                                        \"examples\": [\r",
+													"                                            \"111111111111111111\"\r",
+													"                                        ]\r",
+													"                                    },\r",
+													"                                    \"userLogin\": {\r",
+													"                                        \"type\": \"string\",\r",
+													"                                        \"default\": \"\",\r",
+													"                                        \"title\": \"The userLogin Schema\",\r",
+													"                                        \"examples\": [\r",
+													"                                            \"sysadmin@qacoders.com\"\r",
+													"                                        ]\r",
+													"                                    }\r",
+													"                                },\r",
+													"                                \"examples\": [{\r",
+													"                                    \"userId\": \"111111111111111111\",\r",
+													"                                    \"userLogin\": \"sysadmin@qacoders.com\"\r",
+													"                                }]\r",
+													"                            },\r",
+													"                            \"registrationDate\": {\r",
+													"                                \"type\": \"string\",\r",
+													"                                \"default\": \"\",\r",
+													"                                \"title\": \"The registrationDate Schema\",\r",
+													"                                \"examples\": [\r",
+													"                                    \"terça-feira, 24/10/2023, 19:55:37 BRT\"\r",
+													"                                ]\r",
+													"                            },\r",
+													"                            \"registrationNumber\": {\r",
+													"                                \"type\": \"string\",\r",
+													"                                \"default\": \"\",\r",
+													"                                \"title\": \"The registrationNumber Schema\",\r",
+													"                                \"examples\": [\r",
+													"                                    \"01\"\r",
+													"                                ]\r",
+													"                            },\r",
+													"                            \"companyId\": {\r",
+													"                                \"type\": \"string\",\r",
+													"                                \"default\": \"\",\r",
+													"                                \"title\": \"The companyId Schema\",\r",
+													"                                \"examples\": [\r",
+													"                                    \"Qa.Coders\"\r",
+													"                                ]\r",
+													"                            },\r",
+													"                            \"_id\": {\r",
+													"                                \"type\": \"string\",\r",
+													"                                \"default\": \"\",\r",
+													"                                \"title\": \"The _id Schema\",\r",
+													"                                \"examples\": [\r",
+													"                                    \"65384b692bff0787faabce89\"\r",
+													"                                ]\r",
+													"                            }\r",
+													"                        },\r",
+													"                        \"examples\": [{\r",
+													"                            \"registeredBy\": {\r",
+													"                                \"userId\": \"111111111111111111\",\r",
+													"                                \"userLogin\": \"sysadmin@qacoders.com\"\r",
+													"                            },\r",
+													"                            \"registrationDate\": \"terça-feira, 24/10/2023, 19:55:37 BRT\",\r",
+													"                            \"registrationNumber\": \"01\",\r",
+													"                            \"companyId\": \"Qa.Coders\",\r",
+													"                            \"_id\": \"65384b692bff0787faabce89\"\r",
+													"                        }]\r",
+													"                    },\r",
+													"                    \"examples\": [\r",
+													"                        [{\r",
+													"                            \"registeredBy\": {\r",
+													"                                \"userId\": \"111111111111111111\",\r",
+													"                                \"userLogin\": \"sysadmin@qacoders.com\"\r",
+													"                            },\r",
+													"                            \"registrationDate\": \"terça-feira, 24/10/2023, 19:55:37 BRT\",\r",
+													"                            \"registrationNumber\": \"01\",\r",
+													"                            \"companyId\": \"Qa.Coders\",\r",
+													"                            \"_id\": \"65384b692bff0787faabce89\"\r",
+													"                        }]\r",
+													"                    ]\r",
+													"                },\r",
+													"                \"__v\": {\r",
+													"                    \"type\": \"integer\",\r",
+													"                    \"default\": 0,\r",
+													"                    \"title\": \"The __v Schema\",\r",
+													"                    \"examples\": [\r",
+													"                        0\r",
+													"                    ]\r",
+													"                }\r",
+													"            },\r",
+													"            \"examples\": [{\r",
+													"                \"_id\": \"65384b692bff0787faabce88\",\r",
+													"                \"fullName\": \"Qa-Coders-SYSADMIN\",\r",
+													"                \"mail\": \"sysadmin@qacoders.com\",\r",
+													"                \"password\": \"$2b$10$kEeXDRXLdbLu8.3RJ8zkMu.8O4q4BW4Yn742SipJFcjE8/0ZH8Wfy\",\r",
+													"                \"accessProfile\": \"SYSADMIN\",\r",
+													"                \"cpf\": \"11111111111\",\r",
+													"                \"status\": true,\r",
+													"                \"audit\": [{\r",
+													"                    \"registeredBy\": {\r",
+													"                        \"userId\": \"111111111111111111\",\r",
+													"                        \"userLogin\": \"sysadmin@qacoders.com\"\r",
+													"                    },\r",
+													"                    \"registrationDate\": \"terça-feira, 24/10/2023, 19:55:37 BRT\",\r",
+													"                    \"registrationNumber\": \"01\",\r",
+													"                    \"companyId\": \"Qa.Coders\",\r",
+													"                    \"_id\": \"65384b692bff0787faabce89\"\r",
+													"                }],\r",
+													"                \"__v\": 0\r",
+													"            }]\r",
+													"        },\r",
+													"        \"token\": {\r",
+													"            \"type\": \"string\",\r",
+													"            \"default\": \"\",\r",
+													"            \"title\": \"The token Schema\",\r",
+													"            \"examples\": [\r",
+													"                \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTM4NGI2OTJiZmYwNzg3ZmFhYmNlODgiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRrRWVYRFJYTGRiTHU4LjNSSjh6a011LjhPNHE0Qlc0WW43NDJTaXBKRmNqRTgvMFpIOFdmeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyNC8xMC8yMDIzLCAxOTo1NTozNyBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY1Mzg0YjY5MmJmZjA3ODdmYWFiY2U4OSJ9XSwiX192IjowLCJpYXQiOjE3MDA2OTM0NTUsImV4cCI6MTcwMDc3OTg1NX0.VtaA30s4kw5ft51ldSryHsoDJG3ZoBDW6drZOwT-Jh0\"\r",
+													"            ]\r",
+													"        }\r",
+													"    },\r",
+													"    \"examples\": [{\r",
+													"        \"msg\": \"Olá Qa-Coders-SYSADMIN, autenticação autorizada com sucesso!\",\r",
+													"        \"user\": {\r",
+													"            \"_id\": \"65384b692bff0787faabce88\",\r",
+													"            \"fullName\": \"Qa-Coders-SYSADMIN\",\r",
+													"            \"mail\": \"sysadmin@qacoders.com\",\r",
+													"            \"password\": \"$2b$10$kEeXDRXLdbLu8.3RJ8zkMu.8O4q4BW4Yn742SipJFcjE8/0ZH8Wfy\",\r",
+													"            \"accessProfile\": \"SYSADMIN\",\r",
+													"            \"cpf\": \"11111111111\",\r",
+													"            \"status\": true,\r",
+													"            \"audit\": [{\r",
+													"                \"registeredBy\": {\r",
+													"                    \"userId\": \"111111111111111111\",\r",
+													"                    \"userLogin\": \"sysadmin@qacoders.com\"\r",
+													"                },\r",
+													"                \"registrationDate\": \"terça-feira, 24/10/2023, 19:55:37 BRT\",\r",
+													"                \"registrationNumber\": \"01\",\r",
+													"                \"companyId\": \"Qa.Coders\",\r",
+													"                \"_id\": \"65384b692bff0787faabce89\"\r",
+													"            }],\r",
+													"            \"__v\": 0\r",
+													"        },\r",
+													"        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTM4NGI2OTJiZmYwNzg3ZmFhYmNlODgiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRrRWVYRFJYTGRiTHU4LjNSSjh6a011LjhPNHE0Qlc0WW43NDJTaXBKRmNqRTgvMFpIOFdmeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoidGVyw6dhLWZlaXJhLCAyNC8xMC8yMDIzLCAxOTo1NTozNyBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY1Mzg0YjY5MmJmZjA3ODdmYWFiY2U4OSJ9XSwiX192IjowLCJpYXQiOjE3MDA2OTM0NTUsImV4cCI6MTcwMDc3OTg1NX0.VtaA30s4kw5ft51ldSryHsoDJG3ZoBDW6drZOwT-Jh0\"\r",
+													"    }]    \r",
+													"\r",
+													"};\r",
+													"\r",
+													"pm.test(\"Validando a estrutura do response\", ( ) => {\r",
+													"\tpm.response.to.have.jsonSchema(schema);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token_valido\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"token\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mail\": \"{{mailSYSADMIN}}\",\r\n    \"password\": \"{{passwordSYSADMIN}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/login"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "POST login - campos informados incorretamente",
+					"item": [
+						{
+							"name": "POST user (ADMIN) - para \"POST login - campos informados incorretamente\"",
+							"item": [
+								{
+									"name": "POST user (ADMIN) - para \"POST login - campos informados incorretamente\"",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"POST user (ADMIN) - para \\\"POST login - campos informados incorretamente\\\" - Validar status 201 Created\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"    pm.response.to.have.status(\"Created\");\r",
+													"});\r",
+													"\r",
+													"var jsonData = pm.response.json();\r",
+													"pm.environment.set(\"idADMIN3\", jsonData.user._id);\r",
+													"pm.environment.set(\"mailADMIN3\", jsonData.user.mail);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenSYSADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fullName\": \"Teste User ADMIN Blacklist Para POST Login Incorreto\",\r\n    \"mail\": \"teste.user.admin.blacklist.post.login.incorreto{{numero}}@qacoders.com\",\r\n    \"accessProfile\": \"ADMIN\",\r\n    \"cpf\": \"{{cpf5}}\",\r\n    \"password\": \"{{passwordADMIN}}\",\r\n    \"confirmPassword\": \"{{confirmPasswordADMIN}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/user"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "mail (ADMIN)",
+							"item": [
+								{
+									"name": "POST login (ADMIN) - mail incorreto (vazio)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var mailObtido = jsonData.mail;\r",
+													"var mailEsperado =  \"O campo e-mail é obrigatório.\";\r",
+													"\r",
+													"pm.test(\"POST login (ADMIN) - mail incorreto (vazio) - Validar status 400 Bad Request e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"    pm.response.to.have.status(\"Bad Request\");\r",
+													"\r",
+													"    pm.expect(mailObtido).to.include(mailEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mail\": \"\",\r\n    \"password\": \"{{passwordADMIN}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/login"
+									},
+									"response": []
+								},
+								{
+									"name": "POST login (ADMIN) - mail incorreto (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var alertObtido = jsonData.alert;\r",
+													"var alertEsperado =  \"E-mail ou senha informados são inválidos.\";\r",
+													"\r",
+													"pm.test(\"POST login (ADMIN) - mail incorreto (null) - Validar status 400 Bad Request e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"    pm.response.to.have.status(\"Bad Request\");\r",
+													"\r",
+													"    pm.expect(alertObtido).to.include(alertEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mail\": null,\r\n    \"password\": \"{{passwordADMIN}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/login"
+									},
+									"response": []
+								},
+								{
+									"name": "POST login (ADMIN) - mail incorreto (ausente)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var alertObtido = jsonData.alert;\r",
+													"var alertEsperado =  \"E-mail ou senha informados são inválidos.\";\r",
+													"\r",
+													"pm.test(\"POST login (ADMIN) - mail incorreto (ausente) - Validar status 400 Bad Request e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"    pm.response.to.have.status(\"Bad Request\");\r",
+													"\r",
+													"    pm.expect(alertObtido).to.include(alertEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\r\n    \"password\": \"{{passwordADMIN}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/login"
+									},
+									"response": []
+								},
+								{
+									"name": "POST login (ADMIN) - mail incorreto (sem @)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var alertObtido = jsonData.alert;\r",
+													"var alertEsperado =  \"E-mail ou senha informados são inválidos.\";\r",
+													"\r",
+													"pm.test(\"POST login (ADMIN) - mail incorreto (sem @) - Validar status 400 Bad Request e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"    pm.response.to.have.status(\"Bad Request\");\r",
+													"\r",
+													"    pm.expect(alertObtido).to.include(alertEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mail\": \"teste.user.admin blacklist.post.login.incorretoqacoders.com\",\r\n    \"password\": \"{{passwordADMIN}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/login"
+									},
+									"response": []
+								},
+								{
+									"name": "POST login (ADMIN) - mail incorreto (espaço no nome)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var alertObtido = jsonData.alert;\r",
+													"var alertEsperado =  \"E-mail ou senha informados são inválidos.\";\r",
+													"\r",
+													"pm.test(\"POST login (ADMIN) - mail incorreto (espaço no nome) - Validar status 400 Bad Request e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"    pm.response.to.have.status(\"Bad Request\");\r",
+													"\r",
+													"    pm.expect(alertObtido).to.include(alertEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mail\": \"teste.user.admin blacklist.post.login.incorreto@qacoders.com\",\r\n    \"password\": \"{{passwordADMIN}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/login"
+									},
+									"response": []
+								},
+								{
+									"name": "POST login (ADMIN) - mail incorreto (espaço no domínio)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var alertObtido = jsonData.alert;\r",
+													"var alertEsperado =  \"E-mail ou senha informados são inválidos.\";\r",
+													"\r",
+													"pm.test(\"POST login (ADMIN) - mail incorreto (espaço no domínio) - Validar status 400 Bad Request e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"    pm.response.to.have.status(\"Bad Request\");\r",
+													"\r",
+													"    pm.expect(alertObtido).to.include(alertEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mail\": \"teste.user.admin.blacklist.post.login.incorreto@ qacoders.com\",\r\n    \"password\": \"{{passwordADMIN}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/login"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "password (ADMIN)",
+							"item": [
+								{
+									"name": "POST login (ADMIN) - password incorreto (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var errorObtido = jsonData.error;\r",
+													"var errorEsperado = [];\r",
+													"\r",
+													"pm.test(\"POST login (ADMIN) - password incorreto (null) - Validar status 400 Bad Request e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"    pm.response.to.have.status(\"Bad Request\");\r",
+													"\r",
+													"    pm.expect(errorObtido).to.include(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mail\": \"{{mailADMIN3}}\",\r\n    \"password\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/login"
+									},
+									"response": []
+								},
+								{
+									"name": "POST login (ADMIN) - password incorreto (ausente)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var errorObtido = jsonData.error;\r",
+													"var errorEsperado = [];\r",
+													"\r",
+													"pm.test(\"POST login (ADMIN) - password incorreto (ausente) - Validar status 400 Bad Request e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"    pm.response.to.have.status(\"Bad Request\");\r",
+													"\r",
+													"    pm.expect(errorObtido).to.include(errorEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mail\": \"{{mailADMIN3}}\"\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/login"
+									},
+									"response": []
+								},
+								{
+									"name": "POST login (ADMIN) - password incorreto (abaixo de 8 caracteres permitido - 7 caracteres)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var alertObtido = jsonData.alert;\r",
+													"var alertEsperado =  \"E-mail ou senha informados são inválidos.\";\r",
+													"\r",
+													"pm.test(\"POST login (ADMIN) - password incorreto (abaixo de 8 caracteres permitido - 7 caracteres) - Validar status 400 Bad Request e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"    pm.response.to.have.status(\"Bad Request\");\r",
+													"\r",
+													"    pm.expect(alertObtido).to.include(alertEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mail\": \"{{mailADMIN3}}\",\r\n    \"password\": \"1234@Te\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/login"
+									},
+									"response": []
+								},
+								{
+									"name": "POST login (ADMIN) - password incorreto (além de 12 caracteres permitido - 13 caracteres)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var alertObtido = jsonData.alert;\r",
+													"var alertEsperado =  \"E-mail ou senha informados são inválidos.\";\r",
+													"\r",
+													"pm.test(\"POST login (ADMIN) - password incorreto (além de 12 caracteres permitido - 13 caracteres) - Validar status 400 Bad Request e dados retornados com erro\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"    pm.response.to.have.status(\"Bad Request\");\r",
+													"\r",
+													"    pm.expect(alertObtido).to.include(alertEsperado);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mail\": \"{{mailADMIN3}}\",\r\n    \"password\": \"#1234@TestQA!\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/login"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "mail (SYSADMIN)",
+							"item": [
+								{
+									"name": "Email inválido (sem ponto e sem domínio)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Validando Status code 400\", () => {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Validando mensagem de Email inválido (sem ponto e sem domínio)\", () => {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.alert).to.eql(\"E-mail ou senha informados são inválidos.\");\r",
+													"});\r",
+													"\r",
+													"\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mail\": \"{{emailInvalido}}\",\r\n    \"password\": \"{{passwordSYSADMIN}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/login"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "password (SYSADMIN)",
+							"item": [
+								{
+									"name": "Senha inválida",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Validando Status code 400\", () => {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Validando mensagem de Senha inválida.\", () => {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.alert).to.eql(\"E-mail ou senha informados são inválidos.\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"mail\": \"{{mailSYSADMIN}}\",\r\n  \"password\": \"{{senhaInvalida}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/login"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "mail e password",
+							"item": [
+								{
+									"name": "Campos email e senha vazios",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Validando Status code 400\", () => {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Validando mensagem de e-mail obrigatório\", () => {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.mail).to.eql(\"O campo e-mail é obrigatório.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Validando mensagem de senha obrigatório\", () => {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.password).to.eql(\"O campo senha é obrigatório.\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"packages": {},
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mail\": \"\",\r\n    \"password\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/login"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Company",
+			"item": [
+				{
+					"name": "PUT e GET - campos informados corretamente",
+					"item": [
+						{
+							"name": "corporateName, registerCompany, mail e matriz (corretos)",
+							"item": [
+								{
+									"name": "POST company",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"POST company - Validar status 201 Created\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"    pm.response.to.have.status(\"Created\");\r",
+													"});\r",
+													"\r",
+													"var jsonData = pm.response.json();\r",
+													"pm.environment.set(\"idCompany\", jsonData.newCompany._id);\r",
+													"pm.environment.set(\"responsibleContact\", jsonData.newCompany.responsibleContact);\r",
+													"pm.environment.set(\"telephone\", jsonData.newCompany.telephone);\r",
+													"pm.environment.set(\"serviceDescription\", jsonData.newCompany.serviceDescription);\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"corporateName\": \"Teste Company Blacklist {{numero}}\",\r\n    \"registerCompany\": \"{{cnpj}}\",\r\n    \"mail\": \"teste.company.blacklist{{numero}}@qacoders.com\",\r\n    \"matriz\": \"Teste Matriz Blacklist\",\r\n    \"responsibleContact\": \"Teste Contato Responsável\",\r\n    \"telephone\": \"5519999717753\",\r\n    \"serviceDescription\": \"Teste Descrição Serviço Company Blacklist {{numero}}\",\r\n    \"address\": [\r\n        {\r\n            \"zipCode\": \"52160231\",\r\n            \"city\": \"Recife\",\r\n            \"state\": \"PE\",\r\n            \"district\": \"Dois Unidos\",\r\n            \"street\": \"Rua A\",\r\n            \"number\": \"52\",\r\n            \"complement\": \"Conj Hab Hélio Seixas\",\r\n            \"country\": \"Brasil\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/company"
+									},
+									"response": []
+								},
+								{
+									"name": "PUT company - corporateName, registerCompany, mail e matriz (corretos)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var msgObtida = jsonData.msg;\r",
+													"var corporateNameObtido = jsonData.updatedCompany.corporateName;\r",
+													"var registerCompanyObtido = jsonData.updatedCompany.registerCompany;\r",
+													"var mailObtido = jsonData.updatedCompany.mail;\r",
+													"var matrizObtida = jsonData.updatedCompany.matriz;\r",
+													"\r",
+													"var msgEsperada = \"Companhia atualizada com sucesso.\";\r",
+													"var corporateNameEsperado = \"Teste Company Blacklist Alterado\";\r",
+													"var registerCompanyEsperado = pm.environment.get(\"cnpj\");\r",
+													"var mailEsperado = \"teste.company.blacklist.alterado\";\r",
+													"var matrizEsperada = \"Teste Matriz Blacklist Alterado\";\r",
+													"\r",
+													"pm.test(\"PUT company - corporateName, registerCompany, mail e matriz (corretos) - Validar status 200 OK e dados retornados com sucesso\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"\r",
+													"    pm.expect(msgObtida).to.include(msgEsperada);\r",
+													"    pm.expect(corporateNameObtido).to.include(corporateNameEsperado);\r",
+													"    pm.expect(registerCompanyObtido).to.eq(registerCompanyEsperado);\r",
+													"    pm.expect(mailObtido).to.include(mailEsperado);\r",
+													"    pm.expect(matrizObtida).to.include(matrizEsperada);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set(\"cnpjEsperado\", registerCompanyEsperado);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"corporateName\": \"Teste Company Blacklist Alterado\",\r\n    \"registerCompany\": \"{{cnpj}}\",\r\n    \"mail\": \"teste.company.blacklist.alterado{{numero}}@qacoders.com\",\r\n    \"matriz\": \"Teste Matriz Blacklist Alterado\",\r\n    \"responsibleContact\": \"{{responsibleContact}}\",\r\n    \"telephone\": \"{{telephone}}\",\r\n    \"serviceDescription\": \"{{serviceDescription}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/company/{{idCompany}}"
+									},
+									"response": []
+								},
+								{
+									"name": "GET id company - corporateName, registerCompany, mail e matriz (corretos)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var corporateNameObtido = jsonData.corporateName;\r",
+													"var registerCompanyObtido = jsonData.registerCompany;\r",
+													"var mailObtido = jsonData.mail;\r",
+													"var matrizObtida = jsonData.matriz;\r",
+													"\r",
+													"var corporateNameEsperado = \"Teste Company Blacklist Alterado\";\r",
+													"var registerCompanyEsperado = pm.environment.get(\"cnpjEsperado\");\r",
+													"var mailEsperado = \"teste.company.blacklist.alterado\";\r",
+													"var matrizEsperada = \"Teste Matriz Blacklist Alterado\";\r",
+													"\r",
+													"pm.test(\"GET id company - corporateName, registerCompany, mail e matriz (corretos) - Validar status 200 OK e dados retornados com sucesso\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"\r",
+													"    pm.expect(corporateNameObtido).to.include(corporateNameEsperado);\r",
+													"    pm.expect(registerCompanyObtido).to.eq(registerCompanyEsperado);\r",
+													"    pm.expect(mailObtido).to.include(mailEsperado);\r",
+													"    pm.expect(matrizObtida).to.include(matrizEsperada);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"url": "{{baseUrl}}/api/company/{{idCompany}}"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "responsibleContact, telephone e serviceDescription (corretos)",
+							"item": [
+								{
+									"name": "POST company",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"POST company - Validar status 201 Created\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"    pm.response.to.have.status(\"Created\");\r",
+													"});\r",
+													"\r",
+													"var jsonData = pm.response.json();\r",
+													"pm.environment.set(\"idCompany\", jsonData.newCompany._id);\r",
+													"pm.environment.set(\"corporateName\", jsonData.newCompany.corporateName);\r",
+													"pm.environment.set(\"registerCompany\", jsonData.newCompany.registerCompany);\r",
+													"pm.environment.set(\"mail\", jsonData.newCompany.mail);\r",
+													"pm.environment.set(\"matriz\", jsonData.newCompany.matriz);\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"corporateName\": \"Teste Company Blacklist {{numero}}\",\r\n    \"registerCompany\": \"{{cnpj}}\",\r\n    \"mail\": \"teste.company.blacklist{{numero}}@qacoders.com\",\r\n    \"matriz\": \"Teste Matriz Blacklist\",\r\n    \"responsibleContact\": \"Teste Contato Responsável\",\r\n    \"telephone\": \"5519999717753\",\r\n    \"serviceDescription\": \"Teste Descrição Serviço Company Blacklist {{numero}}\",\r\n    \"address\": [\r\n        {\r\n            \"zipCode\": \"52160231\",\r\n            \"city\": \"Recife\",\r\n            \"state\": \"PE\",\r\n            \"district\": \"Dois Unidos\",\r\n            \"street\": \"Rua A\",\r\n            \"number\": \"52\",\r\n            \"complement\": \"Conj Hab Hélio Seixas\",\r\n            \"country\": \"Brasil\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/company"
+									},
+									"response": []
+								},
+								{
+									"name": "PUT id company - responsibleContact, telephone e serviceDescription (corretos)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var msgObtida = jsonData.msg;\r",
+													"var responsibleContactObtido = jsonData.updatedCompany.responsibleContact;\r",
+													"var telephoneObtido = jsonData.updatedCompany.telephone;\r",
+													"var serviceDescriptionObtida = jsonData.updatedCompany.serviceDescription;\r",
+													"\r",
+													"var msgEsperada = \"Companhia atualizada com sucesso.\";\r",
+													"var responsibleContactEsperado = \"Teste Contato Responsável Alterado\";\r",
+													"var telephoneEsperado = \"5569983053186\";\r",
+													"var serviceDescriptionEsperada = \"Teste Descrição Serviço Company Blacklist Alterado\";\r",
+													"\r",
+													"pm.test(\"PUT id company - responsibleContact, telephone e serviceDescription (corretos) - Validar status 200 OK e dados retornados com sucesso\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"\r",
+													"    pm.expect(msgObtida).to.include(msgEsperada);\r",
+													"    pm.expect(responsibleContactObtido).to.include(responsibleContactEsperado);\r",
+													"    pm.expect(telephoneObtido).to.include(telephoneEsperado);\r",
+													"    pm.expect(serviceDescriptionObtida).to.include(serviceDescriptionEsperada);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"corporateName\": \"{{corporateName}}\",\r\n    \"registerCompany\": \"{{registerCompany}}\",\r\n    \"mail\": \"{{mail}}\",\r\n    \"matriz\": \"{{matriz}}\",\r\n    \"responsibleContact\": \"Teste Contato Responsável Alterado\",\r\n    \"telephone\": \"5569983053186\",\r\n    \"serviceDescription\": \"Teste Descrição Serviço Company Blacklist Alterado\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/company/{{idCompany}}"
+									},
+									"response": []
+								},
+								{
+									"name": "GET id company - responsibleContact, telephone e serviceDescription (corretos)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"var responsibleContactObtido = jsonData.responsibleContact;\r",
+													"var telephoneObtido = jsonData.telephone;\r",
+													"var serviceDescriptionObtida = jsonData.serviceDescription;\r",
+													"\r",
+													"var responsibleContactEsperado = \"Teste Contato Responsável Alterado\";\r",
+													"var telephoneEsperado = \"5569983053186\";\r",
+													"var serviceDescriptionEsperada = \"Teste Descrição Serviço Company Blacklist Alterado\";\r",
+													"\r",
+													"pm.test(\"GET id company - responsibleContact, telephone e serviceDescription (corretos) - Validar status 200 OK e dados retornados com sucesso\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"\r",
+													"    pm.expect(responsibleContactObtido).to.include(responsibleContactEsperado);\r",
+													"    pm.expect(telephoneObtido).to.include(telephoneEsperado);\r",
+													"    pm.expect(serviceDescriptionObtida).to.include(serviceDescriptionEsperada);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{tokenADMIN}}",
+												"type": "text"
+											}
+										],
+										"url": "{{baseUrl}}/api/company/{{idCompany}}"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"function gerarNumerosAleatorios(qtdeNumeros) {",
+					"  var text = \"\";",
+					"  var possible = \"0123456789\";",
+					"",
+					"  for (var i = 0; i < qtdeNumeros; i++)",
+					"    text += possible.charAt(Math.floor(Math.random() * possible.length));",
+					"",
+					"  return text;",
+					"}",
+					"",
+					"pm.environment.set(\"numero\", gerarNumerosAleatorios(6));",
+					"",
+					"function cpf() {",
+					"  const rnd = (n) => Math.round(Math.random() * n);",
+					"  const mod = (base, div) => Math.round(base - Math.floor(base / div) * div)",
+					"  const n = Array(9).fill('').map(() => rnd(9));",
+					"",
+					"  let d1 = n.reduce((total, number, index) => (total + (number * (10 - index))), 0)",
+					"  d1 = 11 - mod(d1, 11);",
+					"  if (d1 >= 10) d1 = 0;",
+					"  ",
+					"  let d2 = (d1 * 2) + n.reduce((total, number, index) => (total + (number * (11 - index))), 0)",
+					"  d2 = 11 - mod(d2, 11);",
+					"  if (d2 >= 10) d2 = 0;",
+					"",
+					"  return `${n.join('')}${d1}${d2}`",
+					"}",
+					"",
+					"pm.environment.set(\"cpf\", cpf());",
+					"pm.environment.set(\"cpf2\", cpf());",
+					"pm.environment.set(\"cpf3\", cpf());",
+					"pm.environment.set(\"cpf4\", cpf());",
+					"pm.environment.set(\"cpf5\", cpf());",
+					"pm.environment.set(\"cpf6\", cpf());",
+					"",
+					"function mod(dividendo,divisor) {",
+					"    return Math.round(dividendo - (Math.floor(dividendo/divisor)*divisor));",
+					"}",
+					"",
+					"function cnpj() {",
+					"    var n = 9;",
+					"    var n1  = gerarNumerosAleatorios(1);",
+					"    var n2  = gerarNumerosAleatorios(1);",
+					"    var n3  = gerarNumerosAleatorios(1);",
+					"    var n4  = gerarNumerosAleatorios(1);",
+					"    var n5  = gerarNumerosAleatorios(1);",
+					"    var n6  = gerarNumerosAleatorios(1);",
+					"    var n7  = gerarNumerosAleatorios(1);",
+					"    var n8  = gerarNumerosAleatorios(1);",
+					"    var n9  = 0;",
+					"    var n10 = 0;",
+					"    var n11 = 0;",
+					"    var n12 = 1;",
+					"",
+					"    var d1 = n12*2+n11*3+n10*4+n9*5+n8*6+n7*7+n6*8+n5*9+n4*2+n3*3+n2*4+n1*5;",
+					"        d1 = 11 - (mod(d1,11));",
+					"",
+					"        if (d1>=10) ",
+					"            d1 = 0;",
+					"",
+					"    var d2 = d1*2+n12*3+n11*4+n10*5+n9*6+n8*7+n7*8+n6*9+n5*2+n4*3+n3*4+n2*5+n1*6;",
+					"        d2 = 11 - (mod(d2,11));",
+					"",
+					"        if (d2>=10) ",
+					"            d2 = 0;",
+					"        ",
+					"    return ''+n1+n2+n3+n4+n5+n6+n7+n8+n9+n10+n11+n12+d1+d2;",
+					"}",
+					"",
+					"pm.environment.set(\"cnpj\", cnpj());"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,40 @@
+name: Pipeline Testes Automatizados API REST ERP Qa.Coders Academy Postman
+# executa o workflow toda vez que for realizado um push ou pull-request no repositório
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # permite também executar esse workflow manualmente na aba "Actions" do GitHub
+  workflow_dispatch:
+
+jobs:
+  postman-api-rest:
+    # agente de execução/runner 
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Passo 1 - Obter cópia do código-fonte do repositório
+        uses: actions/checkout@v3
+
+      - name: Passo 2 - Verificar versões do Node e Newman
+        run: |
+          node --version
+          newman --version
+          
+      - name: Passo 3 - Instalar newman-reporter-htmlextra
+        run: sudo npm install -g newman-reporter-htmlextra
+        
+      - name: Passo 4 - Executar com Newman testes automatizados de API REST no ambiente da squad "Black List" da collection e environment do Postman e Gerar report html 
+        run: newman run ./blacklist-collection-sprints11,12,14.json -e ./blacklist-environment-sprints11,12,14.json --delay-request 2 --reporters cli, -r htmlextra --reporter-htmlextra-export ./reports/postman-api-rest-report-htmlextra-newman.html
+   
+      - name: Passo 5 - Armazenar report html
+        uses: actions/upload-artifact@v3
+        # expressão condicional para que sempre seja executado independentemente dos resultados dos steps anteriores
+        if: ${{ always() }}
+        with: 
+            name: postman-api-rest-report-html-newman
+            path: ./reports
+            # armazena o relatório html por 30 dias
+            retention-days: 30
