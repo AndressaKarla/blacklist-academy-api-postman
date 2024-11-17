@@ -77,7 +77,7 @@ newman-reporter-htmlextra --version
 - Fechar esse gitbash ou terminal
 
 ---
-## :hammer_and_wrench: Clonar o projeto
+# :hammer_and_wrench: Clonar o projeto
 - No Windows 11, abrir uma janela do "Explorador de Arquivos"
 - Acessar o diretório onde será clonado o projeto "blacklist-academy12.2-api-postman"
 - Copiar esse diretório 
