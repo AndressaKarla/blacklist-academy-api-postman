@@ -4,7 +4,6 @@
 # :information_source: Introdução 
 Esse projeto "blacklist-academy12.2-api-postman" é executado no ambiente da squad "Black List" de ["API REST"](https://black-list.qacoders.dev.br) do "ERP do Qa.Coders Academy", com o objetivo de praticarmos ainda mais testes funcionais automatizados de API REST (Ex.: JSON Schema, geração de massa de dados dinâmicos, etc) em Postman, Javascript, Newman e GitHub Actions.
 
-
 ---
 # :dart: Executar com Newman testes automatizados de API REST da collection e environment do Postman, Gerar e armazenar report html no GitHub Actions 
 - Nesse repositório, acessar a aba "Actions"
@@ -14,13 +13,14 @@ Esse projeto "blacklist-academy12.2-api-postman" é executado no ambiente da squ
 - Na seção "Artifacts", clicar em "postman-api-rest-report-html-newman"
 - Na janela aberta, escolher um diretório para baixar a pasta compactada "postman-api-rest-report-html-newman.zip"
 
-# Verificar no navegador padrão o report html gerado e armazenado anteriormente no GitHub Actions e descompactado no computador :female_detective: 
+# :mag_right: Verificar no navegador padrão o report html gerado e armazenado anteriormente no GitHub Actions e descompactado no computador 
 - No Windows 11, abrir uma janela do "Explorador de Arquivos"
 - Acessar o diretório onde foi baixada a pasta compactada "postman-api-rest-report-html-newman.zip" anteriormente
 - Descompactar a pasta
 - Acessar a pasta descompactada "postman-api-rest-report-html-newman"
 - Clicar 2 vezes sob o report "postman-api-rest-report-htmlextra-newman.html" gerado e armazenado anteriormente no GitHub Actions e descompactado para ser aberto e verificado no navegador padrão no computador
 
+---
 # Antes de clonar ou executar esse projeto localmente no computador, é necessário seguir as instruções abaixo :point_down:
 ## :hammer_and_wrench: Janela do "Explorador de Arquivos" > opção "Visualizar" > "Mostrar" e marcar algumas opções
 - No Windows 11, abrir uma janela do "Explorador de Arquivos"
@@ -76,6 +76,7 @@ newman-reporter-htmlextra --version
 ```
 - Fechar esse gitbash ou terminal
 
+---
 ## :hammer_and_wrench: Clonar o projeto
 - No Windows 11, abrir uma janela do "Explorador de Arquivos"
 - Acessar o diretório onde será clonado o projeto "blacklist-academy12.2-api-postman"
@@ -98,33 +99,9 @@ git clone https://github.com/AndressaKarla/blacklist-academy12.2-api-postman.git
 git clone git@github.com:AndressaKarla/blacklist-academy12.2-api-postman.git
 ```
 
-## :hammer_and_wrench: Instalar as extensões no Visual Studio Code (VS Code)
-- Caso ainda não tenha o VS Code baixado e instalado, acessar o site do [Visual Studio Code](https://code.visualstudio.com/download), baixar e instalar com a opção "System Installer"
-- Com o Visual Studio Code aberto, caso seja apresentado alguma mensagem de "Instalar pacote de idiomas ...", clicar no ícone de configurações > "Don't Show Again"
-- Clicar na opção "Manage > Profiles > Create Profile"
-- Em "Profile name", informar "Postman"
-- Clicar na opção "Create"
-- Clicar na opção "Extensions", informar e instalar as extensões abaixo:
-  - Hyper Term Theme
-	  - HasseNasse
-      - Clicar na opção "Hyper Term Black" apresentada para habilitar a extensão
-  - Material Icon Theme
-    - Philipp Kief
-      - Clicar na opção "Material Icon Theme" apresentada para habilitar a extensão 
-- Fechar o VS Code
-    
-## :bookmark_tabs: Abrir o VS Code diretamente na pasta do projeto "blacklist-academy12.2-api-postman"
-- No gitbash aberto anteriormente, informar o comando abaixo para abrir o VS Code diretamente na pasta do projeto "blacklist-academy12.2-api-postman"
-```
-code .
-```
-- Aguardar o VS Code ser aberto
-- Fechar esse gitbash
-- No VS Code aberto, caso seja apresentado "Do you trust the authors on the files in this folder?", marcar a opção "Trust the authors of all files in the parent folder ...."
-	- Clicar no botão "Yes, I trust the authors ...."
-
+---
 # :dart: Executar com Newman testes automatizados de API REST da collection e environment do Postman e Gerar report diretamente no terminal no computador
-- No gitbash aberto anteriormente, informar o comando abaixo para acessar o projeto “blacklist-academy12.2-api-postman”
+- Informar o comando abaixo para acessar o projeto “blacklist-academy12.2-api-postman” clonado anteriormente
 ```
 cd blacklist-academy12.2-api-postman
 ```
@@ -142,7 +119,7 @@ newman run ./blacklist-collection-sprints11,12,14.json -e ./blacklist-environmen
 ```
 
 # :dart: Executar com Newman testes automatizados de API REST da collection e environment do Postman e Gerar report html na pasta "reports" no computador
-- No gitbash aberto anteriormente, informar o comando abaixo para executar com Newman testes automatizados de API REST da collection e environment do Postman com um tempo de espera de 2 ms entre as requisições e Gerar report html na pasta "reports" no computador (mesmo comando que é utilizado no "Passo 4" da "Pipeline Testes Automatizados API REST ERP Qa.Coders Academy Postman" em ".github > workflows > [workflow-blacklist-academy-api-postman-newman.yml](https://github.com/AndressaKarla/blacklist-academy12.2-api-postman/blob/main/.github/workflows/workflow-blacklist-academy-api-postman-newman.yml)" no GitHub Actions)
+- No gitbash aberto anteriormente, informar o comando abaixo para executar com Newman testes automatizados de API REST da collection e environment do Postman com um tempo de espera de 2 ms entre as requisições e gerar report html na pasta "reports" no computador (mesmo comando que é utilizado no "Passo 4" da "Pipeline Testes Automatizados API REST ERP Qa.Coders Academy Postman" em ".github > workflows > [workflow-blacklist-academy-api-postman-newman.yml](https://github.com/AndressaKarla/blacklist-academy12.2-api-postman/blob/main/.github/workflows/workflow-blacklist-academy-api-postman-newman.yml)" no GitHub Actions)
 ```
 newman run ./nome-collection.json -e ./nome-environment.json --delay-request 2 --reporters cli, -r htmlextra --reporter-htmlextra-export ./reports/nome-report.html
 ```
@@ -150,11 +127,36 @@ Ex.:
 ```
 newman run ./blacklist-collection-sprints11,12,14.json -e ./blacklist-environment-sprints11,12,14.json --delay-request 2 --reporters cli, -r htmlextra --reporter-htmlextra-export ./reports/postman-api-rest-report-htmlextra-newman.html
 ```
-- Fechar esse gitbash
 
 ---
-# Verificar no navegador padrão o report html gerado na pasta "reports" anteriormente no computador :female_detective:
+# :hammer_and_wrench: Instalar as extensões no Visual Studio Code (VS Code)
+- Caso ainda não tenha o VS Code baixado e instalado, acessar o site do [Visual Studio Code](https://code.visualstudio.com/download), baixar e instalar com a opção "System Installer"
+- Com o Visual Studio Code aberto, caso seja apresentado alguma mensagem de "Instalar pacote de idiomas ...", clicar no ícone de configurações > "Don't Show Again"
+- Clicar na opção "Manage > Profiles > Create Profile"
+- Em "Profile name", informar "Postman"
+- Clicar na opção "Create"
+- Clicar na opção "Extensions", informar e instalar as extensões abaixo:
+  - Hyper Term Theme
+	- HasseNasse
+   		- Clicar na opção "Hyper Term Black" apresentada para habilitar a extensão
+  - Material Icon Theme
+  	- Philipp Kief
+		- Clicar na opção "Material Icon Theme" apresentada para habilitar a extensão 
+- Fechar o VS Code
+    
+## :bookmark_tabs: Abrir o VS Code diretamente na pasta do projeto "blacklist-academy12.2-api-postman"
+- No gitbash aberto anteriormente, informar o comando abaixo para abrir o VS Code diretamente na pasta do projeto "blacklist-academy12.2-api-postman"
+```
+code .
+```
+- Aguardar o VS Code ser aberto
+- No VS Code aberto, caso seja apresentado "Do you trust the authors on the files in this folder?", marcar a opção "Trust the authors of all files in the parent folder ...."
+	- Clicar no botão "Yes, I trust the authors ...."
+
+# :mag_right: Verificar no navegador padrão o report html gerado na pasta "reports" anteriormente no computador 
 ## :bookmark_tabs: Relatório html no computador
 - No VS Code aberto anteriormente, acessar "reports > postman-api-rest-report-htmlextra-newman.html" 
 - Clicar com botão direito do mouse sob o arquivo "postman-api-rest-report-htmlextra-newman.html" > "Reveal in File Explorer" 
 - Na janela do "Explorador de Arquivos" aberta automaticamente, clicar 2 vezes sob o arquivo "postman-api-rest-report-htmlextra-newman.html" gerado anteriormente no computador para ser aberto e verificado no navegador padrão
+
+---
