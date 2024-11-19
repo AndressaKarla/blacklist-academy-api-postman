@@ -52,7 +52,7 @@ jobs:
 
     environment:
       name: github-pages
-      url: https://andressakarla.github.io/blacklist-academy12.2-api-robot/postman-api-rest-report-htmlextra-newman.html
+      url: https://andressakarla.github.io/blacklist-academy12.2-api-postman/postman-api-rest-report-htmlextra-newman.html
 
     steps:
       - name: Passo 1 - Configurar pages
