@@ -68,6 +68,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./reports
+          retention-days: 30
 
       - name: Passo 4 - Deploy/Publicar no Github Pages na "url" configurada em "deploy-github-pages > environment"
         id: deployment
