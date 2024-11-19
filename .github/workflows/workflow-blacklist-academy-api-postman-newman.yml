@@ -38,3 +38,37 @@ jobs:
             path: ./reports
             # armazena o relatório html por 30 dias
             retention-days: 30
+
+  deploy-github-pages:
+    # esse job "deploy-github-pages" somente é executado se o job anterior "postman-api-rest" for executado com sucesso
+    needs: postman-api-rest
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: https://andressakarla.github.io/blacklist-academy12.2-api-robot/postman-api-rest-report-htmlextra-newman.html
+
+    steps:
+      - name: Passo 1 - Configurar pages
+        uses: actions/configure-pages@v2
+
+      - name: Passo 2 - Baixar report html armazenado no job anterior "postman-api-rest"
+        uses: actions/download-artifact@v4
+        with: 
+          name: postman-api-rest-report-html-newman
+          path: ./reports
+
+      - name: Passo 3 - Armazenar pages
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./reports
+
+      - name: Passo 4 - Deploy/Publicar no Github Pages na "url" configurada em "deploy-github-pages > environment"
+        id: deployment
+        uses: actions/deploy-pages@v1
