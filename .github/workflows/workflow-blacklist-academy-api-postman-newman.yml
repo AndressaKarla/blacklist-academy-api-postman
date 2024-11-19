@@ -30,9 +30,9 @@ jobs:
         run: newman run ./blacklist-collection-sprints11,12,14.json -e ./blacklist-environment-sprints11,12,14.json --delay-request 2 --reporters cli, -r htmlextra --reporter-htmlextra-export ./reports/postman-api-rest-report-htmlextra-newman.html
    
       - name: Passo 5 - Armazenar report html
-        uses: actions/upload-artifact@v3
         # expressão condicional para que sempre seja executado independentemente dos resultados dos steps anteriores
         if: ${{ always() }}
+        uses: actions/upload-artifact@v3
         with: 
             name: postman-api-rest-report-html-newman
             path: ./reports
@@ -56,20 +56,24 @@ jobs:
 
     steps:
       - name: Passo 1 - Configurar pages
+        if: ${{ always() }}
         uses: actions/configure-pages@v2
 
       - name: Passo 2 - Baixar report html armazenado no job anterior "postman-api-rest"
+        if: ${{ always() }}
         uses: actions/download-artifact@v3
         with: 
           name: postman-api-rest-report-html-newman
           path: ./reports
 
       - name: Passo 3 - Armazenar pages
+        if: ${{ always() }}
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./reports
           retention-days: 30
 
       - name: Passo 4 - Deploy/Publicar no Github Pages na "url" configurada em "deploy-github-pages > environment"
+        if: ${{ always() }}
         id: deployment
         uses: actions/deploy-pages@v1
