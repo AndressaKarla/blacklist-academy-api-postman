@@ -61,8 +61,8 @@ jobs:
       - name: Passo 2 - Baixar report html armazenado no job anterior "postman-api-rest"
         uses: actions/download-artifact@v4
         with: 
-          name: postman-api-rest-report-htmlextra-newman
-          path: ./reports
+          name: postman-api-rest-report-html-newman
+          path: ./reports/postman-api-rest-report-htmlextra-newman.html
 
       - name: Passo 3 - Armazenar pages
         uses: actions/upload-pages-artifact@v1
