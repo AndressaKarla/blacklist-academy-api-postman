@@ -1,8 +1,8 @@
 ---
-# Projeto de Testes Funcionais Automatizados de API REST | Postman | Javascript | JSON Schema | Newman | GitHub Actions :test_tube:
+# Projeto de Testes Funcionais Automatizados de API REST | Postman | Javascript | JSON Schema | Newman | GitHub Actions | GitHub Pages :test_tube:
 ---
 # :information_source: Introdução 
-Esse projeto "blacklist-academy12.2-api-postman" é executado no ambiente da squad "Black List" de ["API REST"](https://black-list.qacoders.dev.br) do "ERP do Qa.Coders Academy", com o objetivo de praticarmos ainda mais testes funcionais automatizados de API REST (Ex.: JSON Schema, geração de massa de dados dinâmicos, etc) em Postman, Javascript, Newman e GitHub Actions.
+Esse projeto "blacklist-academy12.2-api-postman" é executado no ambiente da squad "Black List" de ["API REST"](https://black-list.qacoders.dev.br) do "ERP do Qa.Coders Academy", com o objetivo de praticarmos ainda mais testes funcionais automatizados de API REST (Ex.: JSON Schema, geração de massa de dados dinâmicos, etc) em Postman, Javascript, Newman, GitHub Actions e GitHub Pages.
 
 ---
 # :dart: Executar com Newman testes automatizados de API REST da collection e environment do Postman, Gerar e armazenar report html no GitHub Actions 
@@ -154,11 +154,11 @@ code .
 	- Clicar no botão "Yes, I trust the authors ...."
    
 ---
-# :mag_right: Verificar no navegador padrão o report html gerado na pasta "reports" anteriormente no computador 
-## :bookmark_tabs: Relatório html no computador
+# :mag_right: Verificar no navegador padrão o report html gerado e armazenado na pasta "reports" anteriormente no computador 
+## :bookmark_tabs: Report html no computador
 - No VS Code aberto anteriormente, acessar "reports > postman-api-rest-report-htmlextra-newman.html" 
 - Clicar com botão direito do mouse sob o arquivo "postman-api-rest-report-htmlextra-newman.html" > "Reveal in File Explorer" 
-- Na janela do "Explorador de Arquivos" aberta automaticamente, clicar 2 vezes sob o arquivo "postman-api-rest-report-htmlextra-newman.html" gerado anteriormente no computador para ser aberto e verificado no navegador padrão
+- Na janela do "Explorador de Arquivos" aberta automaticamente, clicar 2 vezes sob o arquivo "postman-api-rest-report-htmlextra-newman.html" gerado e armazenado anteriormente no computador para ser aberto e verificado no navegador padrão
 
 ---
 ### Feito com ❤️ por Andressa Karla, Cassiano Pereira, Cristian Fabiano, Ewerton Luiz e Isabela Vidal :wave: 
