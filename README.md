@@ -152,11 +152,15 @@ code .
 - Aguardar o VS Code ser aberto
 - No VS Code aberto, caso seja apresentado "Do you trust the authors on the files in this folder?", marcar a opção "Trust the authors of all files in the parent folder ...."
 	- Clicar no botão "Yes, I trust the authors ...."
-
+   
+---
 # :mag_right: Verificar no navegador padrão o report html gerado na pasta "reports" anteriormente no computador 
 ## :bookmark_tabs: Relatório html no computador
 - No VS Code aberto anteriormente, acessar "reports > postman-api-rest-report-htmlextra-newman.html" 
 - Clicar com botão direito do mouse sob o arquivo "postman-api-rest-report-htmlextra-newman.html" > "Reveal in File Explorer" 
 - Na janela do "Explorador de Arquivos" aberta automaticamente, clicar 2 vezes sob o arquivo "postman-api-rest-report-htmlextra-newman.html" gerado anteriormente no computador para ser aberto e verificado no navegador padrão
+
+---
+### Feito com ❤️ por Andressa Karla, Cassiano Pereira, Cristian Fabiano, Ewerton Luiz e Isabela Vidal :wave: 
 
 ---
